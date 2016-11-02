@@ -253,9 +253,11 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     @Override
     public void onBackPressed() {
 
-        if (panelLayout.isPanelExpanded())
+        if (panelLayout.isPanelExpanded()) {
             panelLayout.collapsePanel();
-        else {
+        } else if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
             super.onBackPressed();
         }
 
