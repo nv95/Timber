@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -52,13 +53,14 @@ import com.naman14.timber.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends BaseActivity implements ATEActivityThemeCustomizer {
 
 
-    private static MainActivity sMainActivity;
+    private static WeakReference<MainActivity> sMainActivity;
     SlidingUpPanelLayout panelLayout;
     NavigationView navigationView;
     TextView songtitle, songartist;
@@ -134,14 +136,15 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     private DrawerLayout mDrawerLayout;
     private boolean isDarkTheme;
 
+    @Nullable
     public static MainActivity getInstance() {
-        return sMainActivity;
+        return sMainActivity.get();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        sMainActivity = this;
+        sMainActivity = new WeakReference<>(this);
         action = getIntent().getAction();
 
         isDarkTheme = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false);
@@ -388,7 +391,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     @Override
     public void onResume() {
         super.onResume();
-        sMainActivity = this;
+        sMainActivity = new WeakReference<MainActivity>(this);
     }
 
     @Override

@@ -31,21 +31,13 @@ import java.util.List;
 
 public class PlaylistSongLoader {
 
-    private static Cursor mCursor;
-
-    private static long mPlaylistID;
-    private static Context context;
-
 
     public static List<Song> getSongsInPlaylist(Context mContext, long playlistID) {
         ArrayList<Song> mSongList = new ArrayList<>();
 
-        context = mContext;
-        mPlaylistID = playlistID;
+        final int playlistCount = countPlaylist(mContext, playlistID);
 
-        final int playlistCount = countPlaylist(context, mPlaylistID);
-
-        mCursor = makePlaylistSongCursor(context, mPlaylistID);
+        Cursor mCursor = makePlaylistSongCursor(mContext, playlistID);
 
         if (mCursor != null) {
             boolean runCleanup = false;
@@ -69,10 +61,10 @@ public class PlaylistSongLoader {
 
             if (runCleanup) {
 
-                cleanupPlaylist(context, mPlaylistID, mCursor);
+                cleanupPlaylist(mContext, playlistID, mCursor);
 
                 mCursor.close();
-                mCursor = makePlaylistSongCursor(context, mPlaylistID);
+                mCursor = makePlaylistSongCursor(mContext, playlistID);
                 if (mCursor != null) {
                 }
             }
@@ -147,8 +139,7 @@ public class PlaylistSongLoader {
 
         try {
             context.getContentResolver().applyBatch(MediaStore.AUTHORITY, ops);
-        } catch (RemoteException e) {
-        } catch (OperationApplicationException e) {
+        } catch (RemoteException | OperationApplicationException ignored) {
         }
     }
 
@@ -177,7 +168,7 @@ public class PlaylistSongLoader {
     }
 
 
-    public static final Cursor makePlaylistSongCursor(final Context context, final Long playlistID) {
+    public static Cursor makePlaylistSongCursor(final Context context, final Long playlistID) {
         final StringBuilder mSelection = new StringBuilder();
         mSelection.append(AudioColumns.IS_MUSIC + "=1");
         mSelection.append(" AND " + AudioColumns.TITLE + " != ''");

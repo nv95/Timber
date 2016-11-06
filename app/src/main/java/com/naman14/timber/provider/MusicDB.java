@@ -20,11 +20,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.lang.ref.WeakReference;
+
 public class MusicDB extends SQLiteOpenHelper {
 
     public static final String DATABASENAME = "musicdb.db";
     private static final int VERSION = 4;
-    private static MusicDB sInstance = null;
+    private static WeakReference<MusicDB> sInstance = null;
 
     private final Context mContext;
 
@@ -34,11 +36,13 @@ public class MusicDB extends SQLiteOpenHelper {
         mContext = context;
     }
 
-    public static final synchronized MusicDB getInstance(final Context context) {
-        if (sInstance == null) {
-            sInstance = new MusicDB(context.getApplicationContext());
+    public static synchronized MusicDB getInstance(final Context context) {
+        MusicDB instance = sInstance == null ? null : sInstance.get();
+        if (instance == null) {
+            instance = new MusicDB(context.getApplicationContext());
+            sInstance = new WeakReference<>(instance);
         }
-        return sInstance;
+        return instance;
     }
 
     @Override

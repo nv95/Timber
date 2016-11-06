@@ -32,7 +32,7 @@ public class AlbumSongLoader {
     public static ArrayList<Song> getSongsForAlbum(Context context, long albumID) {
 
         Cursor cursor = makeAlbumSongCursor(context, albumID);
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Song> arrayList = new ArrayList<>();
         if ((cursor != null) && (cursor.moveToFirst()))
             do {
                 long id = cursor.getLong(0);

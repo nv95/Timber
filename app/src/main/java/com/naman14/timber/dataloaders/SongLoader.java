@@ -31,7 +31,7 @@ public class SongLoader {
     private static final long[] sEmptyList = new long[0];
 
     public static ArrayList<Song> getSongsForCursor(Cursor cursor) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Song> arrayList = new ArrayList<>();
         if ((cursor != null) && (cursor.moveToFirst()))
             do {
                 long id = cursor.getLong(0);

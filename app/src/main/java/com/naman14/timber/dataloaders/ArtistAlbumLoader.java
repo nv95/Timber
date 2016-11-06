@@ -26,7 +26,7 @@ public class ArtistAlbumLoader {
 
     public static ArrayList<Album> getAlbumsForArtist(Context context, long artistID) {
 
-        ArrayList albumList = new ArrayList();
+        ArrayList<Album> albumList = new ArrayList<>();
         Cursor cursor = makeAlbumForArtistCursor(context, artistID);
 
         if (cursor != null) {

@@ -43,7 +43,7 @@ public class Nammu {
     private static final String TAG = Nammu.class.getSimpleName();
     private static final String KEY_PREV_PERMISSIONS = "previous_permissions";
     private static final String KEY_IGNORED_PERMISSIONS = "ignored_permissions";
-    private static Context context;
+    private static Context context; // TODO: 06.11.16 context in static field - isn't good idea
     private static SharedPreferences sharedPreferences;
     private static ArrayList<PermissionRequest> permissionRequests = new ArrayList<PermissionRequest>();
 

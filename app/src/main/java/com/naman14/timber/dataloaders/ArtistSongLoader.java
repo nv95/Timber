@@ -29,7 +29,7 @@ public class ArtistSongLoader {
 
     public static ArrayList<Song> getSongsForArtist(Context context, long artistID) {
         Cursor cursor = makeArtistSongCursor(context, artistID);
-        ArrayList songsList = new ArrayList();
+        ArrayList<Song> songsList = new ArrayList<>();
         if ((cursor != null) && (cursor.moveToFirst()))
             do {
                 long id = cursor.getLong(0);
