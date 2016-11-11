@@ -101,6 +101,13 @@
             app:ateKey_pref_checkBox="?ate_key" />
 
         <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
+            android:defaultValue="false"
+            android:key="smaller_grid"
+            android:summary="@string/smaller_grid_summary"
+            android:title="@string/smaller_grid"
+            app:ateKey_pref_checkBox="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
             android:defaultValue="true"
             android:key="toggle_headphone_pause"
             android:summary="@string/summary_pause_detach"

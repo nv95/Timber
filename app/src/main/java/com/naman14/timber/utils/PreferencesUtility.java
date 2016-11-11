@@ -45,6 +45,7 @@ public final class PreferencesUtility {
     private static final String TOGGLE_XPOSED_TRACKSELECTOR = "toggle_xposed_trackselector";
     public static final String LAST_ADDED_CUTOFF = "last_added_cutoff";
     public static final String GESTURES = "gestures";
+    private static final String SMALLER_GRID = "smaller_grid";
 
     private static PreferencesUtility sInstance;
 
@@ -234,6 +235,10 @@ public final class PreferencesUtility {
 
     public String getLastFolder() {
         return mPreferences.getString(LAST_FOLDER, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getPath());
+    }
+
+    public boolean isGridSmaller() {
+        return mPreferences.getBoolean(SMALLER_GRID, false);
     }
 }
 

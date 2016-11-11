@@ -43,8 +43,8 @@ import com.naman14.timber.dialogs.CreatePlaylistDialog;
 import com.naman14.timber.models.Playlist;
 import com.naman14.timber.subfragments.PlaylistPagerFragment;
 import com.naman14.timber.utils.Constants;
+import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.PreferencesUtility;
-import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.MultiViewPager;
 
@@ -146,7 +146,7 @@ public class PlaylistFragment extends Fragment {
 
     private void setLayoutManager() {
         if (isGrid) {
-            layoutManager = new GridLayoutManager(getActivity(), TimberUtils.isTabletLandscape(getResources()) ? 4 : 2);
+            layoutManager = new GridLayoutManager(getActivity(), Helpers.getGridColumnsCount(getActivity()));
         } else {
             layoutManager = new GridLayoutManager(getActivity(), 1);
         }
@@ -242,7 +242,7 @@ public class PlaylistFragment extends Fragment {
                 isGrid = true;
                 isDefault = false;
                 initRecyclerView();
-                updateLayoutManager(2);
+                updateLayoutManager(Helpers.getGridColumnsCount(getActivity()));
                 return true;
             case R.id.menu_show_as_default:
                 mPreferences.setPlaylistView(Constants.PLAYLIST_VIEW_DEFAULT);

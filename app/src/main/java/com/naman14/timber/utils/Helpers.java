@@ -151,4 +151,11 @@ public class Helpers {
 
     }
 
+    public static int getGridColumnsCount(Context context) {
+        int col = TimberUtils.isTabletLandscape(context.getResources()) ? 4 : 2;
+        if (PreferencesUtility.getInstance(context).isGridSmaller()) {
+            col *= 1.5;
+        }
+        return col;
+    }
 }

@@ -31,9 +31,9 @@ import com.naman14.timber.R;
 import com.naman14.timber.adapters.ArtistAdapter;
 import com.naman14.timber.dataloaders.ArtistLoader;
 import com.naman14.timber.models.Artist;
+import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.PreferencesUtility;
 import com.naman14.timber.utils.SortOrder;
-import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.FastScroller;
 
@@ -73,7 +73,7 @@ public class ArtistFragment extends Fragment {
 
     private void setLayoutManager() {
         if (isGrid) {
-            layoutManager = new GridLayoutManager(getActivity(), TimberUtils.isTabletLandscape(getResources()) ? 4 : 2);
+            layoutManager = new GridLayoutManager(getActivity(), Helpers.getGridColumnsCount(getActivity()));
             fastScroller.setVisibility(View.GONE);
         } else {
             layoutManager = new GridLayoutManager(getActivity(), 1);
@@ -158,7 +158,7 @@ public class ArtistFragment extends Fragment {
             case R.id.menu_show_as_grid:
                 mPreferences.setArtistsInGrid(true);
                 isGrid = true;
-                updateLayoutManager(2);
+                updateLayoutManager(Helpers.getGridColumnsCount(getActivity()));
                 return true;
         }
         return super.onOptionsItemSelected(item);
