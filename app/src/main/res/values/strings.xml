@@ -130,5 +130,6 @@
     <string name="folders">Folders</string>
     <string name="smaller_grid">Condense grid</string>
     <string name="smaller_grid_summary">Make grid items smaller</string>
+    <string name="widget_white">Timber light widget</string>
 
 </resources>
