@@ -100,11 +100,11 @@ public class SongLoader {
 
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String selection = MediaStore.Audio.Media.DATA;
-        String[] selectionArgs = {songPath};
-        String[] projection = new String[]{"_id", "title", "artist", "album", "duration", "track", "artist_id", "album_id"};
+        String[] selectionArgs = {songPath, "/storage" + songPath};
+        String[] projection = new String[]{"_id", "title", "artist", "album", "duration", "track", "artist_id", "album_id", MediaStore.Audio.Media.DATA};
         String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
 
-        Cursor cursor = cr.query(uri, projection, selection + "=?", selectionArgs, sortOrder);
+        Cursor cursor = cr.query(uri, projection, selection + "=? OR " + selection + "=?", selectionArgs, sortOrder);
 
         if (cursor != null && cursor.getCount() > 0) {
             Song song = getSongForCursor(cursor);
@@ -119,8 +119,8 @@ public class SongLoader {
     }
 
     public static long[] getSongListInFolder(Context context, String path) {
-        String[] whereArgs = new String[]{path + "%"};
-        return getSongListForCursor(makeSongCursor(context, MediaStore.Audio.Media.DATA + " LIKE ?", whereArgs, null));
+        String[] whereArgs = new String[]{path + "%", "/storage" + path + "%"};
+        return getSongListForCursor(makeSongCursor(context, MediaStore.Audio.Media.DATA + " LIKE ? OR " + MediaStore.Audio.Media.DATA + " LIKE ?", whereArgs, null));
     }
 
     public static Song getSongForID(Context context, long id) {

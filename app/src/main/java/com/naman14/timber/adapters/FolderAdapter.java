@@ -79,15 +79,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ItemHolder
     @Override
     public void onBindViewHolder(final FolderAdapter.ItemHolder itemHolder, int i) {
         File localItem = mFileSet.get(i);
-        Song song = mSongs.get(i);
         itemHolder.title.setText(localItem.getName());
         if (localItem.isDirectory()) {
             itemHolder.albumArt.setImageDrawable("..".equals(localItem.getName()) ? mIcons[1] : mIcons[0]);
         } else {
+            Song song = mSongs.get(i);
             ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(song.albumId).toString(),
                     itemHolder.albumArt,
                     new DisplayImageOptions.Builder().
                             cacheInMemory(true).showImageOnFail(mIcons[2])
+                            .showImageOnLoading(mIcons[2])
                             .resetViewBeforeLoading(true).build());
         }
     }
